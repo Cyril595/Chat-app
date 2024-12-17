@@ -5,8 +5,8 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 export const sendMessage = async (req, res) => {
 	try {
 		const { message } = req.body;
-		const { id: receiverId } = req.params;
-		const senderId = req.user._id;
+		const { id: receiverId } = req.params;//const receiverId=req.params.id same he h 
+		const senderId = req.user._id;// ye user ki value protectroute middle ware se aayi h
 
 		let conversation = await Conversation.findOne({
 			participants: { $all: [senderId, receiverId] },
@@ -29,7 +29,7 @@ export const sendMessage = async (req, res) => {
 		}
 
 		// await conversation.save();
-		// await newMessage.save();
+		// await newMessage.save();  aise do baari mein karneg jyaada time lagega
 
 		// this will run in parallel
 		await Promise.all([conversation.save(), newMessage.save()]);
